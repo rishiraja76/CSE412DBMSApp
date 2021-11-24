@@ -1,32 +1,22 @@
-#Rishi
-
 import sys
-from PyQt6.QtCore import QSize, Qt
-from PyQt6.QtWidgets import QApplication, QMainWindow, QPushButton
-import psycopg2
+from PyQt5.QtWidgets import *
 
-# Subclass QMainWindow to customize your application's main window
-class MainWindow(QMainWindow):
-    def __init__(self):
-        super().__init__()
+if __name__ == "__main__":
 
-        self.setWindowTitle("My App")
+    app = QApplication([])
+    w = QWidget()
+    w.setWindowTitle("Musketeers")
 
-        button = QPushButton("Press Me!")
+    btn1 = QPushButton("Athos")
+    btn2 = QPushButton("Porthos")
+    btn3 = QPushButton("Aramis")
 
-        self.setFixedSize(QSize(400, 300))
+    hbox = QHBoxLayout(w)
 
-        # Set the central widget of the Window.
-        self.setCentralWidget(button)
+    hbox.addWidget(btn1)
+    hbox.addWidget(btn2)
+    hbox.addWidget(btn3)
 
-try:
-    conn = psycopg2.connect("dbname='template1' user='dbuser' host='localhost' password='dbpass'")
-except:
-    print("I am unable to connect to the database")
+    w.show()
 
-app = QApplication(sys.argv)
-
-window = MainWindow()
-window.show()
-
-app.exec()
+    sys.exit(app.exec_())
