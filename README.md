@@ -3,8 +3,8 @@ Project for Database Management
 
 There are two components within this documentation:
 
-1. [Setup & Installation](https://github.com/momenabdelkarim/cse-412-class-project/blob/main/README.md#setup--installation)
-2. [Walkthrough & Navigation](https://github.com/momenabdelkarim/cse-412-class-project/blob/main/README.md#walkthrough--navigation)
+1. [Setup & Installation]
+2. [Walkthrough & Navigation]
 
 # Setup & Installation
   The setup and installation involves setting up the database, editing the correct files, and starting up the application with the correct data loaded. This procedure should be simple as long as all the pre-requisites are covered.
@@ -35,12 +35,12 @@ $ pip3 install --user -r requirements.txt
 ### Database Setup
   To setup the database used within the project and ensure that the correct data is populated the steps below should be followed sequentially:
 
-1. [Set Environment Variables](https://github.com/momenabdelkarim/cse-412-class-project#set-environment-variables)
-2. [Initialize Database Structure Folder](https://github.com/momenabdelkarim/cse-412-class-project#initialize-database-structure-folder)
-3. [Start the Database](https://github.com/momenabdelkarim/cse-412-class-project#start-the-database)
-4. [Create a User for the Database](https://github.com/momenabdelkarim/cse-412-class-project#create-a-user-for-the-database)
-5. [Populate Database](https://github.com/momenabdelkarim/cse-412-class-project#populate-database)
-6. [Verify Data](https://github.com/momenabdelkarim/cse-412-class-project#verify-data)
+1. [Set Environment Variables]
+2. [Initialize Database Structure Folder]
+3. [Start the Database]
+4. [Create a User for the Database]
+5. [Populate Database]
+6. [Verify Data]
 
 #### Set Environment Variables
   The following environment variables must be set before initializing the database:
@@ -71,7 +71,7 @@ $ initdb /path/to/cse-412-class-project/database/
 pg_ctl -D /path/to/database/root/folder -o '-k /tmp' start
 ```
 
-The `/path/to/database/root/folder/` is the path set when running the command in [Initialize Database Structure Folder](https://github.com/momenabdelkarim/cse-412-class-project#initialize-database-structure-folder) above.
+The `/path/to/database/root/folder/` is the path set when running the command in [Initialize Database Structure Folder] above.
 
 #### Create a User for the Database
   The next step is to create a user for the database in order to access it. This can be done by running the following command:
@@ -119,19 +119,17 @@ SELECT * FROM song WHERE song.auditory_media_id = 101;
                101 | Machine   |      182 |   78769871
 (3 rows)
 ```
-If you obtain the following three songs and their associated attributes, then you are ready to do the [Application Database Sync](https://github.com/momenabdelkarim/cse-412-class-project#application-database-sync).
+If you obtain the following three songs and their associated attributes, then you are ready to do the [Application Database Sync].
 
 ## Application Database Sync
-  In order for the application to appropriately recognize the database, we need to make one change in regards to the files inside the `handlers.py` folder located under `/path/to/cse-412-class-project/backend/handlers.py`.
+In order for the application to appropriately recognize the database, we need to make one change in regards to the files inside the `handlers.py` file.
 
 With the file open, **line 8** and **line 12** should be changed to appropriately match the name of your database and username. In this case, the common subsitute for both values will be the output of `echo $USER`.
 
-This results in the `user` and `database` variables to be set to `$USER`. With this step complete, simple run the application via the `driver.py` file located under `/path/to/cse-412-class-project/bin/driver.py` using the **Pycharm** IDE.
+This results in the `user` and `database` variables to be set to `$USER`. With this step complete, simple run the application via the `driver.py` file using the **Pycharm** IDE.
 
 # Walkthrough & Navigation
   Once setup is complete, the user can run the application and view the landing screen.
-  
-  <img src=https://github.com/momenabdelkarim/cse-412-class-project/blob/main/screenshots/Landing%20Screen.png width="500">
 
 ### Stopping the Application
   To end the application, select the red exit mark in the upper left-hand corner. 
