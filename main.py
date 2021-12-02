@@ -1,4 +1,7 @@
 import sys
+
+from PyQt5 import QtCore
+
 import backend
 
 from PyQt5.QtWidgets import *
@@ -59,22 +62,26 @@ class TableView(QTableWidget):
 def homepage():
     # user information button widget
     button1 = QPushButton("User Information")
+    button1.setFixedSize(QtCore.QSize(120, 30))
     widgets["button1"].append(button1)
     button1.clicked.connect(user_info)
     grid.addWidget(widgets["button1"][-1], 0, 0)
 
     # ticket information button
     ticketbut = QPushButton("Ticket Information")
+    ticketbut.setFixedSize(QtCore.QSize(120, 30))
     widgets["ticketbut"].append(ticketbut)
     ticketbut.clicked.connect(ticket_info)
     grid.addWidget(widgets["ticketbut"][-1], 1, 0)
 
     flightbut = QPushButton("Flight Information")
+    flightbut.setFixedSize(QtCore.QSize(120, 30))
     widgets["flightbut"].append(flightbut)
     flightbut.clicked.connect(flight_info)
     grid.addWidget(widgets["flightbut"][-1], 2, 0)
 
     airlinerbut = QPushButton("Airliner Information")
+    airlinerbut.setFixedSize(QtCore.QSize(120, 30))
     widgets["airlinerbut"].append(airlinerbut)
     airlinerbut.clicked.connect(airliner_info)
     grid.addWidget(widgets["airlinerbut"][-1], 3, 0)
@@ -85,12 +92,13 @@ def user_info():
 
     userTable = TableView(user_data, len(backend.firstname), len(user_data))
     backbutton = QPushButton("Back")
-
+    backbutton.setFixedSize(QtCore.QSize(120, 30))
     grid.addWidget(userTable, 0, 0)
     grid.addWidget(backbutton, 1, 0)
 
     widgets["backbutton"].append(backbutton)
     widgets["userTable"].append(userTable)
+    userTable.setEditTriggers(QAbstractItemView.NoEditTriggers)
     backbutton.clicked.connect(show_homepage)
 
 
@@ -99,12 +107,13 @@ def ticket_info():
 
     userTable = TableView(ticket_data, len(backend.ticketstatus), len(ticket_data))
     backbutton = QPushButton("Back")
-
+    backbutton.setFixedSize(QtCore.QSize(120, 30))
     grid.addWidget(userTable, 0, 0)
     grid.addWidget(backbutton, 1, 0)
 
     widgets["backbutton"].append(backbutton)
     widgets["userTable"].append(userTable)
+    userTable.setEditTriggers(QAbstractItemView.NoEditTriggers)
     backbutton.clicked.connect(show_homepage)
 
 
@@ -113,12 +122,13 @@ def flight_info():
 
     userTable = TableView(flight_data, len(backend.flightstatus), len(flight_data))
     backbutton = QPushButton("Back")
-
+    backbutton.setFixedSize(QtCore.QSize(120, 30))
     grid.addWidget(userTable, 0, 0)
     grid.addWidget(backbutton, 1, 0)
 
     widgets["backbutton"].append(backbutton)
     widgets["userTable"].append(userTable)
+    userTable.setEditTriggers(QAbstractItemView.NoEditTriggers)
     backbutton.clicked.connect(show_homepage)
 
 
@@ -127,12 +137,14 @@ def airliner_info():
 
     userTable = TableView(airliner_data, len(backend.planetype), len(airliner_data))
     backbutton = QPushButton("Back")
+    backbutton.setFixedSize(QtCore.QSize(120, 30))
 
     grid.addWidget(userTable, 0, 0)
     grid.addWidget(backbutton, 1, 0)
 
     widgets["backbutton"].append(backbutton)
     widgets["userTable"].append(userTable)
+    userTable.setEditTriggers(QAbstractItemView.NoEditTriggers)
     backbutton.clicked.connect(show_homepage)
 
 
@@ -158,7 +170,7 @@ if __name__ == "__main__":
     app = QApplication([])
     window = QWidget()
     window.setWindowTitle("Flight Information")
-    window.setFixedWidth(1000)
+    window.setFixedSize(1200, 200)
 
     grid = QGridLayout()
     homepage()
