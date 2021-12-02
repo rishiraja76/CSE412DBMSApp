@@ -1,17 +1,45 @@
 import sys
+
+from PyQt5.QtGui import QStandardItemModel, QStandardItem
+
 import backend
 
 from PyQt5 import QtCore
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 
-
 widgets = {"button1": [],
            "backbutton": [],
            "ticketbut": [],
            "flightbut": [],
-           "airlinerbut": []
+           "airlinerbut": [],
+           "userTable": [],
+           "searchBar": []
            }
+
+data2 = ["apple", "alps", "berry"]
+data = {'First Name': backend.firstname,
+        'Last Name': backend.last
+        # 'col2': ['1', '2', '1', '3'],
+        # 'col3': ['1', '1', '2', '1']}
+        }
+
+class TableView(QTableWidget):
+    def __init__(self, data, *args):
+        QTableWidget.__init__(self, *args)
+        self.data = data
+        self.setData()
+        self.resizeColumnsToContents()
+        self.resizeRowsToContents()
+
+    def setData(self):
+        horHeaders = []
+        for n, key in enumerate(sorted(self.data.keys())):
+            horHeaders.append(key)
+            for m, item in enumerate(self.data[key]):
+                newitem = QTableWidgetItem(item)
+                self.setItem(m, n, newitem)
+        self.setHorizontalHeaderLabels(horHeaders)
 
 
 def homepage():
@@ -42,52 +70,96 @@ def user_info():
     # clears previous widgets
     clear_widgets()
 
+    userTable = TableView(data, len(backend.firstname), len(data))
+
+    # prevents editing in cells
+    userTable.setEditTriggers(QAbstractItemView.NoEditTriggers)
+
+    # CODE FROM HERE
+    namesList = backend.firstname
+    model = QStandardItemModel(len(data), 1)
+    model.setHorizontalHeaderLabels(['user'])
+
+    filter_proxy_model = QSortFilterProxyModel()
+    filter_proxy_model.setSourceModel(model)
+    filter_proxy_model.setFilterCaseSensitivity(Qt.CaseInsensitive)
+    filter_proxy_model.setFilterKeyColumn(1)
+
+    searchCompleter = QCompleter(namesList)
+
+    searchBar = QLineEdit()
+    searchBar.setCompleter(searchCompleter)
+    searchBar.setStyleSheet('font-size: 12px; height: 30px')
+    # searchBar.textChanged.connect(filter_proxy_model.setFilterRegExp)
+    grid.addWidget(searchBar)
+
+
     # back button to return to home
     backbutton = QPushButton("Back")
     # backbutton.setAlignment(QtCore.Qt.AlignRight)
-    grid.addWidget(backbutton, 0, 0)
+    grid.addWidget(userTable, 0, 0)
+
+    grid.addWidget(backbutton, 0, 1)
+
+    widgets["searchBar"].append(searchBar)
     widgets["backbutton"].append(backbutton)
+    widgets["userTable"].append(userTable)
+
     backbutton.clicked.connect(show_homepage)
-    grid.addWidget(widgets["backbutton"][-1], 0, 0)
+
+    # grid.addWidget(widgets["userTable"][-1], 0, 0)
+    # grid.addWidget(widgets["backbutton"][-1], 0, 0)
 
 
 def ticket_info():
     # clears previous wdgets
     clear_widgets()
 
-    # back button to go to homeapge
+    userTable = TableView(data, 4, 3)
+
+    # back button to return to home
     backbutton = QPushButton("Back")
     # backbutton.setAlignment(QtCore.Qt.AlignRight)
-    grid.addWidget(backbutton, 0, 0)
+    grid.addWidget(userTable, 0, 0)
+    grid.addWidget(backbutton, 0, 1)
+
     widgets["backbutton"].append(backbutton)
+    widgets["userTable"].append(userTable)
     backbutton.clicked.connect(show_homepage)
-    grid.addWidget(widgets["backbutton"][-1], 0, 0)
 
 
 def flight_info():
     # clears previous wdgets
     clear_widgets()
 
-    # back button to go to homeapge
+    userTable = TableView(data, 4, 3)
+
+    # back button to return to home
     backbutton = QPushButton("Back")
     # backbutton.setAlignment(QtCore.Qt.AlignRight)
-    grid.addWidget(backbutton, 0, 0)
+    grid.addWidget(userTable, 0, 0)
+    grid.addWidget(backbutton, 0, 1)
+
     widgets["backbutton"].append(backbutton)
+    widgets["userTable"].append(userTable)
     backbutton.clicked.connect(show_homepage)
-    grid.addWidget(widgets["backbutton"][-1], 0, 0)
 
 
 def airliner_info():
     # clears previous wdgets
     clear_widgets()
 
-    # back button to go to homeapge
+    userTable = TableView(data, 4, 3)
+
+    # back button to return to home
     backbutton = QPushButton("Back")
     # backbutton.setAlignment(QtCore.Qt.AlignRight)
-    grid.addWidget(backbutton, 0, 0)
+    grid.addWidget(userTable, 0, 0)
+    grid.addWidget(backbutton, 0, 1)
+
     widgets["backbutton"].append(backbutton)
+    widgets["userTable"].append(userTable)
     backbutton.clicked.connect(show_homepage)
-    grid.addWidget(widgets["backbutton"][-1], 0, 0)
 
 
 def clear_widgets():
