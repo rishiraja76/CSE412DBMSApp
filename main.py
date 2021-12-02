@@ -12,30 +12,31 @@ widgets = {"button1": [],
            }
 
 user_data = {'First Name': backend.firstname,
-            'Last Name': backend.lastname,
-            'User Name': backend.username,
-            'Pass Word': backend.password,
-            'Email': backend.email,
-            'Address': backend.address,
-            'Phone Number': backend.phonenumber,
-            'Credit Card Number': backend.creditcardnumber_u}
+             'Last Name': backend.lastname,
+             'User Name': backend.username,
+             'Pass Word': backend.password,
+             'Email': backend.email,
+             'Address': backend.address,
+             'Phone Number': backend.phonenumber,
+             'Credit Card Number': backend.creditcardnumber_u}
 
-# ticket_data = {'Ticket Status': backend.ticketstatus,
-#                 'Ticket ID': backend.ticketid_tr,
-#                 'Price': backend.price,
-#                 'Credit Card Number': backend.creditcardnumber_tr}
+ticket_data = {'Ticket Status': backend.ticketstatus,
+               'Ticket ID': backend.ticketid_tr,
+               'Price': backend.price,
+               'Credit Card Number': backend.creditcardnumber_tr}
 
-# flight_data = {'Flight Status': backend.flightstatus,
-#             'Flight Number': backend.flightnumber_f,
-#             'Arrival Time': backend.arrivaltime,
-#             'Departure Time': backend.departuretime,
-#             'Departure Location': backend.departuretime,
-#             'Destination': backend.destination,
-#             'Ticket ID': backend.ticketid_f}
+flight_data = {'Flight Status': backend.flightstatus,
+               'Flight Number': backend.flightnumber_f,
+               'Arrival Time': backend.arrivaltime,
+               'Departure Time': backend.departuretime,
+               'Departure Location': backend.departurelocation,
+               'Destination': backend.destination,
+               'Ticket ID': backend.ticketid_f}
 
-# airliner_data = {'Plane Type': backend.planetype,
-#             'Airliner Name': backend.airlinername,
-#             'Flight Number': backend.flightnumber_a}
+airliner_data = {'Plane Type': backend.planetype,
+                 'Airliner Name': backend.airlinername,
+                 'Flight Number': backend.flightnumber_a}
+
 
 class TableView(QTableWidget):
     def __init__(self, data, *args):
@@ -53,6 +54,7 @@ class TableView(QTableWidget):
                 newitem = QTableWidgetItem(item)
                 self.setItem(m, n, newitem)
         self.setHorizontalHeaderLabels(horHeaders)
+
 
 def homepage():
     # user information button widget
@@ -77,6 +79,7 @@ def homepage():
     airlinerbut.clicked.connect(airliner_info)
     grid.addWidget(widgets["airlinerbut"][-1], 3, 0)
 
+
 def user_info():
     clear_widgets()
 
@@ -90,10 +93,11 @@ def user_info():
     widgets["userTable"].append(userTable)
     backbutton.clicked.connect(show_homepage)
 
+
 def ticket_info():
     clear_widgets()
 
-    userTable = TableView(user_data, len(backend.firstname), len(user_data))
+    userTable = TableView(ticket_data, len(backend.ticketstatus), len(ticket_data))
     backbutton = QPushButton("Back")
 
     grid.addWidget(userTable, 0, 0)
@@ -102,11 +106,12 @@ def ticket_info():
     widgets["backbutton"].append(backbutton)
     widgets["userTable"].append(userTable)
     backbutton.clicked.connect(show_homepage)
+
 
 def flight_info():
     clear_widgets()
 
-    userTable = TableView(user_data, len(backend.firstname), len(user_data))
+    userTable = TableView(flight_data, len(backend.flightstatus), len(flight_data))
     backbutton = QPushButton("Back")
 
     grid.addWidget(userTable, 0, 0)
@@ -115,11 +120,12 @@ def flight_info():
     widgets["backbutton"].append(backbutton)
     widgets["userTable"].append(userTable)
     backbutton.clicked.connect(show_homepage)
+
 
 def airliner_info():
     clear_widgets()
 
-    userTable = TableView(user_data, len(backend.firstname), len(user_data))
+    userTable = TableView(airliner_data, len(backend.planetype), len(airliner_data))
     backbutton = QPushButton("Back")
 
     grid.addWidget(userTable, 0, 0)
@@ -128,6 +134,7 @@ def airliner_info():
     widgets["backbutton"].append(backbutton)
     widgets["userTable"].append(userTable)
     backbutton.clicked.connect(show_homepage)
+
 
 def clear_widgets():
     for widget in widgets:
@@ -136,13 +143,16 @@ def clear_widgets():
         for i in range(0, len(widgets[widget])):
             widgets[widget].pop()
 
+
 def show_homepage():
     clear_widgets()
     homepage()
 
+
 def next_tab():
     clear_widgets()
     user_info()
+
 
 if __name__ == "__main__":
     app = QApplication([])
@@ -156,6 +166,5 @@ if __name__ == "__main__":
     window.setLayout(grid)
 
     window.show()
-    print(user_data)
 
     sys.exit(app.exec_())

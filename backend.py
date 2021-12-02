@@ -2,10 +2,10 @@ import psycopg2
 from psycopg2 import *
 
 try:
-    conn = psycopg2.connect(user="anthony",
+    conn = psycopg2.connect(user="pjbogdan",
                             host="localhost",
                             port="8888",
-                            database="midterm")
+                            database="cse412_finalproj")
     cursor = conn.cursor()
 
     postgresSQL_user = "SELECT * FROM users"
@@ -29,7 +29,7 @@ try:
         email.append(row[4])
         address.append(row[5])
         phonenumber.append(row[6])
-        creditcardnumber_u.append(row[7])
+        creditcardnumber_u.append(str(row[7]))
 
     postgresSQL_airliner = "SELECT * FROM airliner"
     cursor.execute(postgresSQL_airliner)
@@ -56,7 +56,7 @@ try:
         ticketstatus.append(row[0])
         ticketid_tr.append(row[1])
         price.append(row[2])
-        creditcardnumber_tr.append(row[3])
+        creditcardnumber_tr.append(str(row[3]))
 
     postgresSQL_flight = "SELECT * FROM flight"
     cursor.execute(postgresSQL_flight)
@@ -72,8 +72,8 @@ try:
     for row in flight_records:
         flightstatus.append(row[0])
         flightnumber_f.append(row[1])
-        arrivaltime.append(row[2])
-        departuretime.append(row[3])
+        arrivaltime.append(row[2].strftime('%H:%M:%S'))
+        departuretime.append(row[3].strftime('%H:%M:%S'))
         departurelocation.append(row[4])
         destination.append(row[5])
         ticketid_f.append(row[6])
