@@ -1,8 +1,6 @@
 import sys
 import backend
 
-from PyQt5 import QtCore
-from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 
 widgets = {"button1": [],
@@ -13,10 +11,31 @@ widgets = {"button1": [],
            "userTable": []
            }
 
-data = {'First Name': backend.firstname,
-        'col2': ['1', '2', '1', '3'],
-        'col3': ['1', '1', '2', '1']}
+user_data = {'First Name': backend.firstname,
+            'Last Name': backend.firstname,
+            'User Name': backend.firstname,
+            'Pass Word': backend.firstname,
+            'Email': backend.firstname,
+            'Address': backend.firstname,
+            'Phone Number': backend.firstname,
+            'Credit Card Number': backend.firstname}
 
+ticket_data = {'Ticket Status': backend.ticketstatus,
+                'Ticket ID': backend.ticketid_tr,
+                'Price': backend.price,
+                'Credit Card Number': backend.creditcardnumber_tr}
+
+flight_data = {'Flight Status': backend.flightstatus,
+            'Flight Number': backend.flightnumber_f,
+            'Arrival Time': backend.arrivaltime,
+            'Departure Time': backend.departuretime,
+            'Departure Location': backend.departuretime,
+            'Destination': backend.destination,
+            'Ticket ID': backend.ticketid_f}
+
+airliner_data = {'Plane Type': backend.planetype,
+            'Airliner Name': backend.airlinername,
+            'Flight Number': backend.flightnumber_a}
 
 class TableView(QTableWidget):
     def __init__(self, data, *args):
@@ -34,7 +53,6 @@ class TableView(QTableWidget):
                 newitem = QTableWidgetItem(item)
                 self.setItem(m, n, newitem)
         self.setHorizontalHeaderLabels(horHeaders)
-
 
 def homepage():
     # user information button widget
@@ -59,77 +77,57 @@ def homepage():
     airlinerbut.clicked.connect(airliner_info)
     grid.addWidget(widgets["airlinerbut"][-1], 3, 0)
 
-
 def user_info():
-    # clears previous widgets
     clear_widgets()
 
-    userTable = TableView(data, len(backend.firstname), len(data))
-
-    # back button to return to home
+    userTable = TableView(user_data, len(backend.firstname), len(user_data))
     backbutton = QPushButton("Back")
-    # backbutton.setAlignment(QtCore.Qt.AlignRight)
+
     grid.addWidget(userTable, 0, 0)
-    grid.addWidget(backbutton, 0, 1)
+    grid.addWidget(backbutton, 1, 0)
 
     widgets["backbutton"].append(backbutton)
     widgets["userTable"].append(userTable)
     backbutton.clicked.connect(show_homepage)
-
-    # grid.addWidget(widgets["userTable"][-1], 0, 0)
-    # grid.addWidget(widgets["backbutton"][-1], 0, 0)
-
 
 def ticket_info():
-    # clears previous wdgets
     clear_widgets()
 
-    userTable = TableView(data, 4, 3)
-
-    # back button to return to home
+    userTable = TableView(ticket_data, len(backend.ticketstatus), len(user_data))
     backbutton = QPushButton("Back")
-    # backbutton.setAlignment(QtCore.Qt.AlignRight)
+
     grid.addWidget(userTable, 0, 0)
-    grid.addWidget(backbutton, 0, 1)
+    grid.addWidget(backbutton, 1, 0)
 
     widgets["backbutton"].append(backbutton)
     widgets["userTable"].append(userTable)
     backbutton.clicked.connect(show_homepage)
-
 
 def flight_info():
-    # clears previous wdgets
     clear_widgets()
 
-    userTable = TableView(data, 4, 3)
-
-    # back button to return to home
+    userTable = TableView(flight_data, len(backend.flightstatus), len(user_data))
     backbutton = QPushButton("Back")
-    # backbutton.setAlignment(QtCore.Qt.AlignRight)
+
     grid.addWidget(userTable, 0, 0)
-    grid.addWidget(backbutton, 0, 1)
+    grid.addWidget(backbutton, 1, 0)
 
     widgets["backbutton"].append(backbutton)
     widgets["userTable"].append(userTable)
     backbutton.clicked.connect(show_homepage)
-
 
 def airliner_info():
-    # clears previous wdgets
     clear_widgets()
 
-    userTable = TableView(data, 4, 3)
-
-    # back button to return to home
+    userTable = TableView(airliner_data, len(backend.planetype), len(user_data))
     backbutton = QPushButton("Back")
-    # backbutton.setAlignment(QtCore.Qt.AlignRight)
+
     grid.addWidget(userTable, 0, 0)
-    grid.addWidget(backbutton, 0, 1)
+    grid.addWidget(backbutton, 1, 0)
 
     widgets["backbutton"].append(backbutton)
     widgets["userTable"].append(userTable)
     backbutton.clicked.connect(show_homepage)
-
 
 def clear_widgets():
     for widget in widgets:
@@ -138,33 +136,25 @@ def clear_widgets():
         for i in range(0, len(widgets[widget])):
             widgets[widget].pop()
 
-
 def show_homepage():
     clear_widgets()
     homepage()
-
 
 def next_tab():
     clear_widgets()
     user_info()
 
-
 if __name__ == "__main__":
     app = QApplication([])
     window = QWidget()
     window.setWindowTitle("Flight Information")
-    # test = QPushButton('test')
-    # window.move(2700, 200)
     window.setFixedWidth(1000)
 
     grid = QGridLayout()
     homepage()
-    # test = QPushButton('test')
-    #  grid.addWidget(test, 0, 0)
 
     window.setLayout(grid)
 
-    # hbox = QHBoxLayout(window)
     window.show()
 
-    sys.exit(app.exec_())
+    sys.exit(app.exec()_)
