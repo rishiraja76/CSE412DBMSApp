@@ -1,2 +1,2 @@
-# User Manual
+# README
 Project for Database Management
