@@ -8,12 +8,75 @@ try:
                             database="cse412_finalproj")
     cursor = conn.cursor()
 
-    print("PostgresSQL server information")
-    print(conn.get_dsn_parameters(), "\n")
-    cursor.execute("SELECT version();")
+    postgresSQL_user = "SELECT * FROM users"
+    cursor.execute(postgresSQL_user)
+    user_records = cursor.fetchall()
 
-    record = cursor.fetchone()
-    print("You are connected to - ", record, "\n")
+    firstname = []
+    lastname = []
+    username = []
+    password = []
+    email = []
+    address = []
+    phonenumber = []
+    creditcardnumber_u = []
+
+    for row in user_records:
+        firstname.append(row[0])
+        lastname.append(row[1])
+        username.append(row[2])
+        password.append(row[3])
+        email.append(row[4])
+        address.append(row[5])
+        phonenumber.append(row[6])
+        creditcardnumber_u.append(str(row[7]))
+
+    postgresSQL_airliner = "SELECT * FROM airliner"
+    cursor.execute(postgresSQL_airliner)
+    airliner_records = cursor.fetchall()
+
+    planetype = []
+    airlinername = []
+    flightnumber_a = []
+    for row in airliner_records:
+        planetype.append(row[0])
+        airlinername.append(row[1])
+        flightnumber_a.append(row[2])
+
+    postgresSQL_ticket_reservation = "SELECT * FROM ticket_reservation"
+    cursor.execute(postgresSQL_ticket_reservation)
+    ticket_reservation_records = cursor.fetchall()
+
+    ticketstatus = []
+    ticketid_tr = []
+    price = []
+    creditcardnumber_tr = []
+
+    for row in ticket_reservation_records:
+        ticketstatus.append(row[0])
+        ticketid_tr.append(row[1])
+        price.append(row[2])
+        creditcardnumber_tr.append(str(row[3]))
+
+    postgresSQL_flight = "SELECT * FROM flight"
+    cursor.execute(postgresSQL_flight)
+    flight_records = cursor.fetchall()
+
+    flightstatus = []
+    flightnumber_f = []
+    arrivaltime = []
+    departuretime = []
+    departurelocation = []
+    destination = []
+    ticketid_f = []
+    for row in flight_records:
+        flightstatus.append(row[0])
+        flightnumber_f.append(row[1])
+        arrivaltime.append(row[2].strftime('%H:%M:%S'))
+        departuretime.append(row[3].strftime('%H:%M:%S'))
+        departurelocation.append(row[4])
+        destination.append(row[5])
+        ticketid_f.append(row[6])
 
 except (Exception, Error) as error:
     print("Error while connecting to PostgreSQL", error)
